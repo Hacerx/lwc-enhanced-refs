@@ -1,0 +1,10 @@
+<template>
+    test refsss
+    <lightning-button label="Test refs" onclick={onClick}></lightning-button>
+
+    <lightning-input label="Static ref" lwc:ref="staticRef" value="Static ref"></lightning-input>
+
+    <template for:each={inputs} for:item="input">
+        <lightning-input key={input.key} label={input.label} value={input.value} data-ref={input.key}></lightning-input>
+    </template>
+</template>
