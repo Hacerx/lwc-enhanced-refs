@@ -21,6 +21,8 @@ To use the `EnhancedRefs` mixin, import it from the `c/enhancedRefs` module and 
 </template>
 ```
 
+### Mixin
+
 ```js
 // enhancedRefsTest.js
 import { LightningElement } from 'lwc';
@@ -36,14 +38,31 @@ export default class EnhancedRefsTest extends EnhancedRefs(LightningElement) {
 }
 ```
 
+### Module
+
+```js
+// enhancedRefsTest.js
+import { LightningElement } from 'lwc';
+import { enhancedRefs } from 'c/enhancedRefs';
+export default class EnhancedRefsTest extends LightningElement {
+
+    enhancedRefs = enhancedRefs(this);
+
+    inputs = Array.from({ length: 5 }, (_, i) => ({ key: `input${i}`, value: `value ${i}`, label: `Label ${i}` }));
+
+    onClick() {
+        console.log(this.enhancedRefs.staticRef.value);
+        console.log(JSON.stringify(this.inputs.map(({ key }) => this.enhancedRefs[key].value)))
+    }
+}
+```
+
+
 ## Installation
 
 1) Clone the repository
 2) Deploy the `c/enhancedRefs` module to your org
-   - You can deploy the module using the Salesforce CLI
-###
+#### Deploy the module using the Salesforce CLI
     sf project deploy start -x manifest/package.xml
 
-3) Use the `EnhancedRefs` mixin in your components
-
-
+1) Use the `EnhancedRefs` mixin or the `enhancedRefs` function in your component
